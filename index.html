@@ -67,6 +67,31 @@
 .nav.active{ color:var(--gold); }
 .nav:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; border-radius:10px; }
 
+/* Auth screens */
+.helper{font-size:13px;color:var(--muted)}
+.link{color:var(--gold);font-weight:700;text-decoration:none}
+.authform .input{height:auto;padding:0;border:none}
+.authform .input input{height:48px;border:2px solid #ecdccc;border-radius:12px;padding:0 14px;background:#fff}
+.authform .row-between{display:flex;justify-content:space-between;align-items:center}
+.divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:#ecdccc}
+.social{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.social .btn{height:48px;background:#fff;border:2px solid #ecdccc;color:var(--text)}
+.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--muted);cursor:pointer}
+.input-wrap{position:relative}
+
+/* Role chooser */
+.role-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.role-card{
+  display:flex;gap:12px;align-items:center;padding:14px;border:2px solid #ecdccc;
+  border-radius:16px;background:#fff;cursor:pointer;box-shadow:var(--shadow)
+}
+.role-card .thumb{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--pink),#fff5ef)}
+.role-card[aria-checked="true"]{border-color:var(--gold);background:color-mix(in oklab,#fff 80%, var(--gold))}
+.role-card:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.role-help{font-size:13px;color:var(--muted)}
+
+
 
   /* Type & UI */
   .h1{font:700 24px Poppins, sans-serif}
@@ -111,6 +136,16 @@
 </style>
 </head>
 <body>
+    <symbol id="icon-lock" viewBox="0 0 24 24">
+  <path d="M6 10h12v10H6zM8 10V7a4 4 0 1 1 8 0v3"/>
+</symbol>
+<symbol id="icon-mail" viewBox="0 0 24 24">
+  <path d="M3 5h18v14H3zM3 7l9 6 9-6"/>
+</symbol>
+<symbol id="icon-eye" viewBox="0 0 24 24">
+  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+</symbol>
+
     <!-- SVG ICONS (defs for bottom nav) -->
 <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <symbol id="icon-home" viewBox="0 0 24 24">
@@ -145,6 +180,128 @@
 </header>
 
 <main class="board">
+    <!-- 00 Welcome / Entry -->
+<section class="phone" role="region" aria-label="0 • Welcome">
+  <div class="status">09:41</div>
+  <div class="screen center">
+    <div class="logo" aria-label="Beauty Connect logo">BC</div>
+    <div class="h1">Beauty Connect</div>
+    <p class="p">Discover local beauty, learn, and sell — all in one place.</p>
+    <div class="stack" style="width:100%;max-width:320px;margin-top:6px">
+      <a class="btn" href="#">Log in</a>
+      <a class="btn secondary" href="#">Create account</a>
+      <a class="btn outline" href="#">Continue as guest</a>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Log in -->
+<section class="phone" role="region" aria-label="1 • Log in">
+  <div class="status">09:41</div>
+  <div class="screen">
+    <div class="h2">Log in</div>
+    <form class="authform stack" aria-label="Login form">
+      <label class="stack">
+        <span class="helper"><svg width="16" height="16"><use href="#icon-mail"/></svg> Email</span>
+        <div class="input"><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+      </label>
+
+      <label class="stack">
+        <span class="helper"><svg width="16" height="16"><use href="#icon-lock"/></svg> Password</span>
+        <div class="input-wrap">
+          <div class="input"><input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password" required></div>
+          <button type="button" class="eye" aria-label="Show password" onclick="togglePwd('loginPassword', this)">👁</button>
+        </div>
+      </label>
+
+      <div class="row-between">
+        <label class="helper"><input type="checkbox" style="margin-right:6px">Remember me</label>
+        <a class="link" href="#">Forgot password?</a>
+      </div>
+
+      <button class="btn" type="submit">Log in</button>
+
+      <div class="divider">or</div>
+      <div class="social">
+        <button class="btn" type="button">Continue with Google</button>
+        <button class="btn" type="button">Continue with Apple</button>
+      </div>
+
+      <div class="helper" style="text-align:center">No account? <a class="link" href="#">Create one</a></div>
+    </form>
+  </div>
+</section>
+
+<!-- 01c Choose your role -->
+<section class="phone" role="region" aria-label="1c • Choose your role">
+  <div class="status">09:41</div>
+  <div class="screen">
+    <div class="h2">Choose your role</div>
+    <p class="role-help">This helps us tailor your home screen. You can change this later in Settings.</p>
+
+    <div class="role-grid" role="radiogroup" aria-label="Select role">
+      <div class="role-card" id="role-user" role="radio" aria-checked="false" tabindex="0"
+           onclick="selectRole('user')" onkeydown="roleKey(event,'user')">
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="stack">
+          <strong>Aisha — User</strong>
+          <span class="p">Discover tutorials, scan shade, book artists.</span>
+        </div>
+      </div>
+
+      <div class="role-card" id="role-artist" role="radio" aria-checked="false" tabindex="0"
+           onclick="selectRole('artist')" onkeydown="roleKey(event,'artist')">
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="stack">
+          <strong>Jade — Makeup Artist</strong>
+          <span class="p">Manage bookings, calendar, and payments.</span>
+        </div>
+      </div>
+
+      <div class="role-card" id="role-brand" role="radio" aria-checked="false" tabindex="0"
+           onclick="selectRole('brand')" onkeydown="roleKey(event,'brand')">
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="stack">
+          <strong>Rajesh — Brand / Shop</strong>
+          <span class="p">Upload products, track orders, high-contrast mode.</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" id="roleContinue" style="margin-top:12px" disabled>Continue</button>
+    <p class="role-help">We’ll remember your choice on this device.</p>
+  </div>
+</section>
+
+
+<!-- 01b Create account -->
+<section class="phone" role="region" aria-label="1b • Create account">
+  <div class="status">09:41</div>
+  <div class="screen">
+    <div class="h2">Create account</div>
+    <form class="authform stack" aria-label="Sign up form">
+      <label class="stack">
+        <span class="helper"><svg width="16" height="16"><use href="#icon-mail"/></svg> Email</span>
+        <div class="input"><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+      </label>
+
+      <label class="stack">
+        <span class="helper"><svg width="16" height="16"><use href="#icon-lock"/></svg> Password</span>
+        <div class="input-wrap">
+          <div class="input"><input id="signupPassword" type="password" placeholder="At least 8 characters" autocomplete="new-password" required></div>
+          <button type="button" class="eye" aria-label="Show password" onclick="togglePwd('signupPassword', this)">👁</button>
+        </div>
+      </label>
+
+      <label class="helper"><input type="checkbox" required style="margin-right:6px">
+        I agree to the Terms and Privacy Policy</label>
+
+      <button class="btn" type="submit">Create account</button>
+      <div class="helper" style="text-align:center">Already have an account? <a class="link" href="#">Log in</a></div>
+    </form>
+  </div>
+</section>
+
   <!-- ========================= A I S H A ========================= -->
 
   <!-- 01 Aisha – Home -->
@@ -615,6 +772,39 @@
     t.addEventListener('click', ()=> set(t.getAttribute('aria-checked') !== 'true'));
     t.addEventListener('keydown', (e)=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); set(t.getAttribute('aria-checked')!=='true'); }});
   })();
+
+  function togglePwd(id, el){
+  const inp = document.getElementById(id);
+  if(!inp) return;
+  const isPwd = inp.type === 'password';
+  inp.type = isPwd ? 'text' : 'password';
+  el.textContent = isPwd ? '🙈' : '👁';
+}
+
+// Role selection logic
+let chosenRole = null;
+function setChecked(id, on){
+  const el = document.getElementById(id);
+  if (el) el.setAttribute('aria-checked', on ? 'true' : 'false');
+}
+function selectRole(role){
+  // clear previous
+  ['role-user','role-artist','role-brand'].forEach(id=>setChecked(id,false));
+  // set current
+  const map = {user:'role-user', artist:'role-artist', brand:'role-brand'};
+  setChecked(map[role], true);
+  chosenRole = role;
+  const cta = document.getElementById('roleContinue');
+  if (cta){ cta.disabled = false; cta.onclick = ()=> {
+    localStorage.setItem('bc_role', role);
+    // For prototype: you can navigate by scrolling or leaving as-is for Figma.
+    // Example: window.location.hash = role; // optional
+  }; }
+}
+function roleKey(e, role){
+  if (e.key===' ' || e.key==='Enter'){ e.preventDefault(); selectRole(role); }
+}
+
 </script>
 </body>
 </html>
