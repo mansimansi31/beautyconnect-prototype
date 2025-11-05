@@ -133,9 +133,50 @@
   .toggle .knob{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:999px;background:#fff;transition:transform .2s}
   .toggle[aria-checked="true"]{background:var(--gold)}
   .toggle[aria-checked="true"] .knob{transform:translateX(24px)}
+
+  /* Top utilities bar injected into each screen */
+.topbar{
+  display:flex; align-items:center; justify-content:flex-end; gap:10px;
+  padding:4px 0 6px; margin-top:-8px;
+}
+.iconbtn{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:8px 10px; border:1.5px solid #ecdccc; border-radius:12px;
+  background:#fff; color:var(--text); font:600 12px Poppins; cursor:pointer;
+}
+.iconbtn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Settings lists */
+.list-tile{display:flex; align-items:center; gap:12px; padding:14px;
+  border:1px solid #eee4da; border-radius:14px; background:#fff; box-shadow:var(--shadow)}
+.list-tile svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Accessibility classes */
+.large-text{ font-size:18px }               /* bumps base body text */
+.no-motion *{ transition:none !important; animation:none !important }
+
+/* Map placeholder */
+.map{height:160px;border-radius:14px;border:1px solid #eee4da;background:linear-gradient(180deg,#f9efe8,#fff)}
+
 </style>
 </head>
 <body>
+  <symbol id="icon-gear" viewBox="0 0 24 24">
+  <path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm8.7 4a7 7 0 0 0-.2-1.7l2-1.6-2-3.5-2.4 1a7 7 0 0 0-3-1.7l-.4-2.6H9.3L8.9 4.5a7 7 0 0 0-3 1.7l-2.4-1-2 3.5 2 1.6A7 7 0 0 0 3.3 12a7 7 0 0 0 .2 1.7l-2 1.6 2 3.5 2.4-1a7 7 0 0 0 3 1.7l.4 2.6h5.4l.4-2.6a7 7 0 0 0 3-1.7l2.4 1 2-3.5-2-1.6c.1-.6.2-1.1.2-1.7z"/>
+</symbol>
+<symbol id="icon-a11y" viewBox="0 0 24 24">
+  <path d="M12 3a2 2 0 110 4 2 2 0 010-4zm-8 6h16m-12 0l2 12m8-12l-2 12M8 12h8"/>
+</symbol>
+<symbol id="icon-photo" viewBox="0 0 24 24">
+  <path d="M3 7h18v12H3zM8 7l2-2h4l2 2M8 14a3 3 0 1 0 6 0 3 3 0 0 0-6 0z"/>
+</symbol>
+<symbol id="icon-pin" viewBox="0 0 24 24">
+  <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11zM12 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+</symbol>
+<symbol id="icon-shield" viewBox="0 0 24 24">
+  <path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/>
+</symbol>
+
     <symbol id="icon-lock" viewBox="0 0 24 24">
   <path d="M6 10h12v10H6zM8 10V7a4 4 0 1 1 8 0v3"/>
 </symbol>
@@ -348,6 +389,59 @@
 
     </div>
   </section>
+
+  <!-- Aisha – Find Local MUAs -->
+<section class="phone" role="region" aria-label="Aisha • Find Local MUA">
+  <div class="status">09:41</div>
+  <div class="screen">
+    <div class="row">
+      <div class="h2">Find a local MUA</div>
+      <span class="badge"><svg width="16" height="16"><use href="#icon-pin"/></svg> Use location</span>
+    </div>
+
+    <label class="input" aria-label="Search MUAs">
+      <span aria-hidden="true">🔎</span><input placeholder="Search by city, look, price…" />
+    </label>
+
+    <div class="map center"><div class="p">Map preview (prototype)</div></div>
+
+    <div class="list">
+      <div class="card" style="padding:12px">
+        <div class="row">
+          <strong>Jade Williams • 4.9 ★</strong>
+          <span class="badge">1.2 km</span>
+        </div>
+        <div class="p">Soft glam • Bridal • Party | From £55</div>
+        <div class="row">
+          <button class="btn secondary" style="height:40px">View profile</button>
+          <button class="btn" style="height:40px">Book</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px">
+        <div class="row">
+          <strong>Aisha Malik • 4.7 ★</strong>
+          <span class="badge">3.4 km</span>
+        </div>
+        <div class="p">Natural glow • Eid looks | From £40</div>
+        <div class="row">
+          <button class="btn secondary" style="height:40px">View profile</button>
+          <button class="btn" style="height:40px">Book</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav: Tutorials or Home active is fine here -->
+    <nav class="navbar" role="navigation" aria-label="Bottom navigation">
+      <a class="nav active" href="#"><svg><use href="#icon-home"/></svg><span>Home</span></a>
+      <a class="nav" href="#"><svg><use href="#icon-vid"/></svg><span>Tutorials</span></a>
+      <a class="nav" href="#"><svg><use href="#icon-star"/></svg><span>Artist</span></a>
+      <a class="nav" href="#"><svg><use href="#icon-bag"/></svg><span>Shop</span></a>
+      <a class="nav" href="#"><svg><use href="#icon-user"/></svg><span>Profile</span></a>
+    </nav>
+  </div>
+</section>
+
 
   <!-- 02 Aisha – Skin Tone Scanner -->
   <section class="phone" role="region" aria-label="2 • Aisha • Skin tone scanner">
@@ -753,6 +847,101 @@
   <a class="nav" href="#"><svg><use href="#icon-user"/></svg><span>Profile</span></a>
 </nav>
 
+<!-- SETTINGS -->
+<section class="phone" role="region" aria-label="Settings">
+  <div class="status">09:41</div>
+  <div class="screen">
+    <div class="h2">Settings</div>
+
+    <div class="list stack">
+      <div class="list-tile">
+        <svg><use href="#icon-photo"/></svg>
+        <div class="stack" style="flex:1">
+          <strong>Profile photo</strong>
+          <span class="p">Tap to change (prototype)</span>
+        </div>
+        <button class="btn secondary" style="height:40px">Upload</button>
+      </div>
+
+      <div class="list-tile">
+        <svg><use href="#icon-user"/></svg>
+        <div class="stack" style="flex:1">
+          <strong>Profile</strong>
+          <span class="p">Name, email, role</span>
+        </div>
+        <span class="badge">Edit</span>
+      </div>
+
+      <div class="list-tile" data-open="privacy">
+        <svg><use href="#icon-shield"/></svg>
+        <div class="stack" style="flex:1">
+          <strong>Privacy</strong>
+          <span class="p">Data & visibility controls</span>
+        </div>
+        <span class="badge">Open</span>
+      </div>
+
+      <div class="list-tile" data-open="accessibility">
+        <svg><use href="#icon-a11y"/></svg>
+        <div class="stack" style="flex:1">
+          <strong>Accessibility</strong>
+          <span class="p">Contrast, text size, motion</span>
+        </div>
+        <span class="badge">Open</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESSIBILITY SETTINGS -->
+<section class="phone" role="region" aria-label="Accessibility">
+  <div class="status">09:41</div>
+  <div class="screen">
+    <div class="h2">Accessibility</div>
+    <div class="stack">
+      <label class="list-tile" style="justify-content:space-between">
+        <div class="stack">
+          <strong>High contrast</strong>
+          <span class="p">Improved legibility with darker surfaces</span>
+        </div>
+        <span role="switch" aria-checked="false" tabindex="0" class="toggle" id="a11yHC"><span class="knob"></span></span>
+      </label>
+
+      <label class="list-tile" style="justify-content:space-between">
+        <div class="stack">
+          <strong>Large text</strong>
+          <span class="p">Bigger body copy across screens</span>
+        </div>
+        <span role="switch" aria-checked="false" tabindex="0" class="toggle" id="a11yLarge"><span class="knob"></span></span>
+      </label>
+
+      <label class="list-tile" style="justify-content:space-between">
+        <div class="stack">
+          <strong>Reduce motion</strong>
+          <span class="p">Turn off non-essential animations</span>
+        </div>
+        <span role="switch" aria-checked="false" tabindex="0" class="toggle" id="a11yNoMotion"><span class="knob"></span></span>
+      </label>
+    </div>
+  </div>
+</section>
+
+<!-- (Optional) PRIVACY stub -->
+<section class="phone" role="region" aria-label="Privacy">
+  <div class="status">09:41</div>
+  <div class="screen">
+    <div class="h2">Privacy</div>
+    <div class="card" style="padding:14px">
+      <div class="stack">
+        <strong>Data controls (prototype)</strong>
+        <label class="helper"><input type="checkbox" checked style="margin-right:6px"> Share tutorial analytics anonymously</label>
+        <label class="helper"><input type="checkbox" style="margin-right:6px"> Allow personalised recommendations</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+
     </div>
   </section>
 </main>
@@ -773,13 +962,101 @@
     t.addEventListener('keydown', (e)=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); set(t.getAttribute('aria-checked')!=='true'); }});
   })();
 
-  function togglePwd(id, el){
-  const inp = document.getElementById(id);
-  if(!inp) return;
-  const isPwd = inp.type === 'password';
-  inp.type = isPwd ? 'text' : 'password';
-  el.textContent = isPwd ? '🙈' : '👁';
+  // --- GLOBAL ACCESSIBILITY STATE ---
+const A11Y_KEYS = { hc: 'bc_hc', large: 'bc_large', nomotion: 'bc_nomotion' };
+
+function applyA11y(phone){
+  const hc = localStorage.getItem(A11Y_KEYS.hc) === '1';
+  const lg = localStorage.getItem(A11Y_KEYS.large) === '1';
+  const nm = localStorage.getItem(A11Y_KEYS.nomotion) === '1';
+  phone.classList.toggle('hc', hc);
+  phone.classList.toggle('large-text', lg);
+  phone.classList.toggle('no-motion', nm);
 }
+
+function setA11y(key, on){
+  localStorage.setItem(key, on ? '1' : '0');
+  document.querySelectorAll('.phone').forEach(applyA11y);
+}
+
+// --- TOPBAR INJECTION (HC Toggle + Settings Link) ---
+function injectTopbars(){
+  document.querySelectorAll('.phone .screen').forEach(scr=>{
+    // skip auth screens (Welcome / Login / CreateAccount / ChooseRole)
+    const label = scr.parentElement?.getAttribute('aria-label') || '';
+    if (/\bWelcome\b|\bLog in\b|\bCreate account\b|\bChoose your role\b/i.test(label)) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'topbar';
+    bar.innerHTML = `
+      <button class="iconbtn" type="button" data-open="settings">
+        <svg><use href="#icon-gear"/></svg><span>Settings</span>
+      </button>
+      <button class="iconbtn" type="button" id="hcToggleGlobal">
+        <svg><use href="#icon-a11y"/></svg><span>High contrast</span>
+      </button>
+    `;
+    scr.insertBefore(bar, scr.firstChild);
+  });
+
+  // open Settings subpages
+document.querySelectorAll('.list-tile[data-open="accessibility"]').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    const target = [...document.querySelectorAll('.phone')]
+      .find(p => /Accessibility/i.test(p.getAttribute('aria-label')||''));
+    if (target) target.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+});
+document.querySelectorAll('.list-tile[data-open="privacy"]').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    const target = [...document.querySelectorAll('.phone')]
+      .find(p => /Privacy/i.test(p.getAttribute('aria-label')||''));
+    if (target) target.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+});
+
+// toggle switches persistence
+function bindToggle(id, key){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const on = localStorage.getItem(key) === '1';
+  el.setAttribute('aria-checked', on ? 'true':'false');
+  el.addEventListener('click', ()=>{
+    const now = el.getAttribute('aria-checked') !== 'true';
+    el.setAttribute('aria-checked', now ? 'true':'false');
+    setA11y(key, now);
+  });
+  el.addEventListener('keydown', e=>{
+    if(e.key===' '||e.key==='Enter'){ e.preventDefault(); el.click(); }
+  });
+}
+bindToggle('a11yHC', A11Y_KEYS.hc);
+bindToggle('a11yLarge', A11Y_KEYS.large);
+bindToggle('a11yNoMotion', A11Y_KEYS.nomotion);
+
+
+  // Wire up buttons
+  document.querySelectorAll('[data-open="settings"]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      // just scroll to the Settings screen for the prototype:
+      const target = [...document.querySelectorAll('.phone')]
+        .find(p => /Settings/i.test(p.getAttribute('aria-label')||''));
+      if (target) target.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+
+  document.querySelectorAll('#hcToggleGlobal').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const nowOn = !(localStorage.getItem(A11Y_KEYS.hc) === '1');
+      setA11y(A11Y_KEYS.hc, nowOn);
+    });
+  });
+}
+
+// Apply stored settings to all phones on load
+document.querySelectorAll('.phone').forEach(applyA11y);
+injectTopbars();
+
 
 // Role selection logic
 let chosenRole = null;
